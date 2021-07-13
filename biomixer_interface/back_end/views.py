@@ -123,7 +123,7 @@ class PreparingPage(View):
                 material_index.append(i+1)
                 i += 1
             # BEGIN ARDUINO
-            arduino = serial.Serial('/dev/ttyUSB0',9600)
+            arduino = serial.Serial('/dev/ttyUSB0',115200,timeout=10)
             # SEND Values
             machine = MachineCmd(port='/dev/ttyUSB0')   # Hay que poner el port que vayan a usar aquí
             machine.set_values(d1=value_list[0], d2=value_list[1],
@@ -131,13 +131,21 @@ class PreparingPage(View):
 			       d5=value_list[4])
             machine.serialize()
             print(machine.to_hex())
-            arduino.write(machine.packet)
+            if arduino.write(machine.packet):
+                print('OK')
+                try:
+                    packet = arduino.read(10)
+                    print("original packet: ", packet.hex())
+                except serial.SerialException as e:
+                    print(e)
+
+            else:
+                print('fail')
             
-            
-            print("original packet: ", arduino.read(10).hex())
             # END ARDUINO
         else:
             print(formset.errors)
+
         return render(request, 'mixing.html', context={'materials_and_index': zip(material_list, material_index),
                                                        'materials': material_list,
                                                        'values': value_list})

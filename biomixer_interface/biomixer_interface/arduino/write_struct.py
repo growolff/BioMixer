@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*
 
-import serial
 import struct
 
 class MachineCmd(object):
@@ -12,7 +11,6 @@ class MachineCmd(object):
     """
 
     def __init__(self, port='/dev/ttyUSB0'):
-        #self.arduino = serial.Serial(port, 9600)
         self.cmd_struct = struct.Struct('<hhhhh')
         self.packet = ''
         self.d1 = 0
@@ -40,9 +38,3 @@ class MachineCmd(object):
         else:
             return self.arduino.read(size=size)
 
-    def write(self):
-        self.serialize()
-        #if self.arduino.write(self.packet):
-        #    return True
-        #else:
-        #    return False

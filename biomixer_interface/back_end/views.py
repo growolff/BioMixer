@@ -11,6 +11,7 @@ from .models import *
 import PIL
 from .forms import MaterialFormSet, Labels
 from biomixer_interface.arduino.write_struct import MachineCmd
+import serial
 
 class HomePage(View):
     """
@@ -106,13 +107,14 @@ class PreparingPage(View):
         :return:
         """
         formset = MaterialFormSet(request.POST)
+        material_list = []
+        material_index = []
+        value_list = []
+
         if formset.is_valid():
             n_recipes = Recipe.objects.all().count()+1
             recipe = Recipe.objects.create(name="New_recipe "+str(n_recipes), tag="", img_link="")
             i = 0
-            material_list = []
-            material_index = []
-            value_list = []
             for answer in formset.cleaned_data:
                 Supply.objects.create(recipe=recipe, position=i, material=answer['material'],
                                       value=answer['value'], type=answer['type'])
@@ -121,14 +123,21 @@ class PreparingPage(View):
                 material_index.append(i+1)
                 i += 1
             # BEGIN ARDUINO
+            arduino = serial.Serial('/dev/ttyUSB0',9600)
             # SEND Values
-            machine = MachineCmd(port='/dev/ttyACM0')   # Hay que poner el port que vayan a usar aquí
+            machine = MachineCmd(port='/dev/ttyUSB0')   # Hay que poner el port que vayan a usar aquí
             machine.set_values(d1=value_list[0], d2=value_list[1],
                                d3=value_list[2], d4=value_list[3],
 			       d5=value_list[4])
-            machine.write()
-            print(machine.read(size=100))
+            machine.serialize()
+            print(machine.to_hex())
+            arduino.write(machine.packet)
+            
+            
+            print("original packet: ", arduino.read(10).hex())
             # END ARDUINO
+        else:
+            print(formset.errors)
         return render(request, 'mixing.html', context={'materials_and_index': zip(material_list, material_index),
                                                        'materials': material_list,
                                                        'values': value_list})

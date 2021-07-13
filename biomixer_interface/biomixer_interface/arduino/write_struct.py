@@ -2,8 +2,6 @@
 
 import serial
 import struct
-from io import BytesIO
-
 
 class MachineCmd(object):
     """
@@ -13,30 +11,28 @@ class MachineCmd(object):
 
     """
 
-    _struct = struct.Struct('<hhhh')
-
     def __init__(self, port='/dev/ttyUSB0'):
-        self.arduino = serial.Serial(port, 9600)
-        self.buffer = BytesIO()
+        #self.arduino = serial.Serial(port, 9600)
+        self.cmd_struct = struct.Struct('<hhhhh')
+        self.packet = ''
         self.d1 = 0
         self.d2 = 0
         self.d3 = 0
         self.d4 = 0
-	self.d5 = 0
+        self.d5 = 0
 
     def serialize(self):
-        self.buffer.write(self._struct.pack(self.d1, self.d2, self.d3, self.d4))
+        self.packet = self.cmd_struct.pack(self.d1, self.d2, self.d3, self.d4, self.d5)
 
-    @staticmethod
-    def to_hex(data):
-        return ":".join("{:02x}".format(c) for c in data)
+    def to_hex(self):
+        return self.packet.hex()
 
     def set_values(self, d1=0, d2=0, d3=0, d4=0, d5=0):
         self.d1 = d1
         self.d2 = d2
         self.d3 = d3
         self.d4 = d4
-	self.d5 = d5
+        self.d5 = d5
 
     def read(self, line=False, size=1):
         if line is True:
@@ -44,9 +40,9 @@ class MachineCmd(object):
         else:
             return self.arduino.read(size=size)
 
-    def write(self, message=''):
-        if message == '':
-            self.serialize()
-            self.arduino.write(bytearray(self.buffer.getvalue()))
-        else:
-            self.arduino.write(message.encode('b'))
+    def write(self):
+        self.serialize()
+        #if self.arduino.write(self.packet):
+        #    return True
+        #else:
+        #    return False

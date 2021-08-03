@@ -48,7 +48,7 @@ def get_ip() -> str:
 
 
 LAN_HOST = get_ip()
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '0.0.0.0', LAN_HOST, gethostname(), gethostbyname(gethostname())]
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '0.0.0.0', LAN_HOST, gethostname(), gethostbyname(gethostname()),'192.168.1.88','192.168.1.100']
 
 CORS_ORIGIN_ALLOW_ALL = True    # check for security in ajax
 # Application definition

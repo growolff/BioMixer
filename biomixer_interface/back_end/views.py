@@ -123,12 +123,12 @@ class PreparingPage(View):
                 material_index.append(i+1)
                 i += 1
             # BEGIN ARDUINO
-            arduino = serial.Serial('/dev/ttyUSB0',115200,timeout=10)
+            arduino = serial.Serial('/dev/ttyUSB0',9600,timeout=3)
             # SEND Values
-            machine = MachineCmd(port='/dev/ttyUSB0')   # Hay que poner el port que vayan a usar aquí
+            machine = MachineCmd()   # Hay que poner el port que vayan a usar aquí
             machine.set_values(d1=value_list[0], d2=value_list[1],
                                d3=value_list[2], d4=value_list[3],
-			       d5=value_list[4])
+			                   d5=value_list[4])
             machine.serialize()
             print(machine.to_hex())
             if arduino.write(machine.packet):
@@ -141,7 +141,8 @@ class PreparingPage(View):
 
             else:
                 print('fail')
-            
+
+            arduino.close()
             # END ARDUINO
         else:
             print(formset.errors)

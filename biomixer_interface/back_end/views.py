@@ -10,7 +10,7 @@ from django.http import HttpResponse
 from .models import *
 import PIL
 from .forms import MaterialFormSet, Labels
-from biomixer_interface.arduino.write_struct import MachineCmd
+from biomixer_interface.arduino.machine_cmd import MachineCmd
 import serial
 
 class HomePage(View):
@@ -125,7 +125,7 @@ class PreparingPage(View):
             # BEGIN ARDUINO
             arduino = serial.Serial('/dev/ttyUSB0',9600,timeout=10)
             # SEND Values
-            machine = MachineCmd()   # Hay que poner el port que vayan a usar aquí
+            machine = MachineCmd()
             machine.set_values(d1=value_list[0], d2=value_list[1],
                                d3=value_list[2], d4=value_list[3],
 			                   d5=value_list[4])
@@ -142,7 +142,7 @@ class PreparingPage(View):
             else:
                 print('fail')
 
-            arduino.close()
+            # arduino.close()
             # END ARDUINO
         else:
             print(formset.errors)

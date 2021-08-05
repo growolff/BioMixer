@@ -123,7 +123,7 @@ class PreparingPage(View):
                 material_index.append(i+1)
                 i += 1
             # BEGIN ARDUINO
-            arduino = serial.Serial('/dev/ttyUSB0',9600,timeout=10)
+            arduino = serial.Serial('/dev/ttyACM0',9600,timeout=10)
             # SEND Values
             machine = MachineCmd()   # Hay que poner el port que vayan a usar aquí
             machine.set_values(d1=value_list[0], d2=value_list[1],

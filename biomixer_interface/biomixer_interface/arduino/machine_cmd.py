@@ -7,10 +7,9 @@ class MachineCmd(object):
         define the structure of the data, little-endian
         h is for 2 byte integer, see the full list here https://docs.python.org/3/library/struct.html#format-characters
         add as many data types as you want to send to arduino
-
     """
 
-    def __init__(self, port='/dev/ttyUSB0'):
+    def __init__(self):
         self.cmd_struct = struct.Struct('<hhhhh')
         self.packet = ''
         self.d1 = 0
@@ -37,4 +36,3 @@ class MachineCmd(object):
             return self.arduino.readline()
         else:
             return self.arduino.read(size=size)
-

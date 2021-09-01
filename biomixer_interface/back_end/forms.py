@@ -28,9 +28,9 @@ class MaterialForm (forms.Form):
                                widget=forms.TextInput(
                                    attrs={
                                        'class': 'col-3 mr-4 form-control',
-                                       'type': 'number', 'min': '1',
-                                       'step': '0.01',
-                                       'placeholder': '0'
+                                       'type': 'number', 'min': '0',
+                                       'step': '0.1',
+                                       'value': 0
                                     }))
     type = forms.ChoiceField(choices=Supply.Types.choices,
                              required=True,

@@ -89,6 +89,7 @@ class PreparingPage(View):
         Home page view
         manages the request for the home page
     """
+    arduino = serial.Serial('/dev/ttyACM0',9600,timeout=10)
 
     def get(self, request):
         """
@@ -123,18 +124,18 @@ class PreparingPage(View):
                 material_index.append(i+1)
                 i += 1
             # BEGIN ARDUINO
-            arduino = serial.Serial('/dev/ttyACM0',9600,timeout=10)
             # SEND Values
-            machine = MachineCmd()
-            machine.set_values(d1=value_list[0], d2=value_list[1],
-                               d3=value_list[2], d4=value_list[3],
-			                   d5=value_list[4])
-            machine.serialize()
-            print(machine.to_hex())
-            if arduino.write(machine.packet):
+            self.machine = MachineCmd()
+            self.machine.set_values(d1=value_list[0], d2=value_list[1],
+                                    d3=value_list[2], d4=value_list[3],
+                                    d5=value_list[4])
+            self.machine.serialize()
+            print(self.machine.to_hex())
+
+            if self.arduino.write(self.machine.packet):
                 print('OK')
                 try:
-                    packet = arduino.read(10)
+                    packet = self.arduino.read(10)
                     print("original packet: ", packet.hex())
                 except serial.SerialException as e:
                     print(e)

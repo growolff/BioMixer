@@ -5,7 +5,7 @@ from .models import *
 
 # Labels for forms
 class Labels:
-    options = ['Binder', 'Plasticizer', 'Support', 'Preservative', 'Organic Residue']
+    options = ['Support', 'Plasticizer', 'Binder', 'Preservative', 'Organic Waste']
     index = 0
 
     @property
@@ -38,6 +38,7 @@ class MaterialForm (forms.Form):
                                  attrs={
                                      'class': 'col-3 mr-4 custom-select'
                                  }))
+    # state = forms.TypedChoiceField(choices=formfields.State, initial='FIXED')
 
 
 

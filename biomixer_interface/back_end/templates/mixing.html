@@ -56,7 +56,7 @@
             <h4 class="mybadge mybadge-primary mybadge-pill"> Machine raw input</h4>
             <div class="bg-dark">
                 <div class="text-mono" style="width: 100%; height: 10em" >
-                    <p class="text-white">perro</p>
+                    <p id="machine_output" class="text-white"></p>
                 </div>
             </div>
         </div>
@@ -67,50 +67,64 @@
 {% endblock %}
 
 {% block JS %}
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.js"></script>
-    <script id="Sample">
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: [
-                    {% for material in materials %}
-                        '{{ material }}',
-                    {% endfor %}
-                ],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [
-                        {% for value in values %}
-                            {{ value }},
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.js"></script>
+        <script id="Sample">
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: [
+                        {% for material in materials %}
+                            '{{ material }}',
                         {% endfor %}
                     ],
-                    backgroundColor: [
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(93, 102, 255, 1)',
-                    ],
-                    borderColor: [
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(153, 102, 255, 1)',
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    x: {
-                        beginAtZero: true
+                    datasets: [{
+                        label: '# of Votes',
+                        data: [
+                            {% for value in values %}
+                                {{ value }},
+                            {% endfor %}
+                        ],
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(93, 102, 255, 1)',
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(153, 102, 255, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            beginAtZero: true
+                        }
                     }
                 }
-            }
-        });
+            });
 
     </script>
     <script src="../static/js/extraFunctions.js"></script>
+    <!-- Load Content -->
+    <script>
+        setInterval(loadDoc, 1000);
+
+        function loadDoc() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+                document.getElementById("machine_output").innerHTML =
+                    this.responseText;
+            }
+            xhttp.open("GET", "{% url 'back_end:machine_output' %}");
+            xhttp.send();
+        }
+    </script>
 {% endblock %}

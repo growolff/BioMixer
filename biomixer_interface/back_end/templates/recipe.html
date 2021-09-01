@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="p-3 rounded border-light">
+            <!-- Title-->
+            <div class="col-12">
+                <p class="font-italic font-weight-light text-success">creation date: {{ creation_date }}</p>
+                <h4 class="text-center display-3 mb-5">{{ recipe_name }}</h4>
+            </div>
+            <!-- content -->
+            <div class="row">
+                <!-- Img + steps -->
+                <div class="col-sm-6">
+                    <img class="img-fluid rounded mb-5 mx-auto d-block"
+                         src="https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco/k%2Farchive%2F549aa993461e462712b033881d6f4355185a13f2"
+                         alt="image" width="200">
+                    <!-- Steps -->
+                    <h4 class="text-bold m-3">Supply</h4>
+                    <div class="p-3 bg-dark rounded">
+                        {% for supply in supplies %}
+                            <p> <span class="font-weight-bolder">{{ supply.position }}.</span>
+                                {{ supply.material }}
+                                {{ supply.value }}
+                                <span class="font-italic">{{ supply.type }}</span></p>
+                        {% endfor %}
+                    </div>
+                </div>
+                <!-- Composition -->
+                <div class="col-sm-6">
+                    <h4 class="text-bold mb-3">Composition</h4>
+                    <canvas class="mb-5 p-3 bg-dark rounded" id="composition" width="200" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block JS %}
+    <script src="../static/js/Chart.js"></script>
+    <script id="Sample">
+        var ctx = document.getElementById('composition').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: [
+                    {% for material in materials %}
+                        '{{ material }}',
+                    {% endfor %}
+                ],
+                datasets: [{
+                    label: ' ',
+                    data: [
+                        {% for value in values %}
+                            {{ value }},
+                        {% endfor %}
+                    ],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(93, 102, 255, 1)',
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(153, 102, 255, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                       ticks: {
+                           color: '#ffffff',
+                       }
+                    },
+                    y: {
+                        ticks: {
+                            color: '#ffffff',
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        labels: {
+                            fontColor: 'rgb(255, 255, 255)',
+                            color: '#ffffff'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock %}

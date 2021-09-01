@@ -2,46 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="53830557-6fea-4947-b98a-ea9a5ec6448f" name="Default Changelist" comment="libraries and UI colors&#10;&#10;basically add new libraries and adjust the UI colors to be corporate.">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/biomixer_interface/back_end/migrations/0002_chemicalformula_material_recipe_step_supply.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/biomixer_interface/back_end/migrations/0003_auto_20210624_1108.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/biomixer_interface/back_end/static/css/figures.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/biomixer_interface/back_end/static/fonts/nanami/Nanami-Black.otf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/biomixer_interface/back_end/static/fonts/nanami/Nanami-BlackOblique.otf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/biomixer_interface/back_end/static/fonts/nanami/Nanami-Bold.otf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/biomixer_interface/back_end/static/fonts/nanami/Nanami-BoldOblique.otf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/biomixer_interface/back_end/static/fonts/nanami/Nanami-Book.otf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/biomixer_interface/back_end/static/fonts/nanami/Nanami-BookOblique.otf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/biomixer_interface/back_end/static/fonts/nanami/Nanami-ExtraLight.otf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/biomixer_interface/back_end/static/fonts/nanami/Nanami-ExtraLightOblique.otf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/biomixer_interface/back_end/static/fonts/nanami/Nanami-Heavy.otf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/biomixer_interface/back_end/static/fonts/nanami/Nanami-HeavyOblique.otf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/biomixer_interface/back_end/static/fonts/nanami/Nanami-Light.otf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/biomixer_interface/back_end/static/fonts/nanami/Nanami-LightOblique.otf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/biomixer_interface/back_end/static/fonts/nanami/Nanami-OutlineOblique.otf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/biomixer_interface/back_end/static/fonts/nanami/Nanami-OutlineRegular.otf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/biomixer_interface/back_end/static/fonts/nanami/Nanami-Regular.otf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/biomixer_interface/back_end/static/fonts/nanami/Nanami-RegularOblique.otf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/biomixer_interface/back_end/static/fonts/nanami/Nanami-Thin.otf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/biomixer_interface/back_end/static/fonts/nanami/Nanami-ThinOblique.otf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/biomixer_interface/back_end/static/fonts/nanami/Nanamii.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/biomixer_interface/back_end/static/fonts/nanami/t0000_02-f.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/biomixer_interface/back_end/static/fonts/nanami/t0000_03-f.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/biomixer_interface/back_end/static/fonts/nanami/t0000_06-f.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/biomixer_interface/back_end/static/fonts/nanami/t4443_01-f.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/biomixer_interface/back_end/static/js/extraFunctions.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biomixer_interface/back_end/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/biomixer_interface/back_end/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biomixer_interface/back_end/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/biomixer_interface/back_end/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biomixer_interface/back_end/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/biomixer_interface/back_end/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biomixer_interface/back_end/static/css/progressbar.css" beforeDir="false" afterPath="$PROJECT_DIR$/biomixer_interface/back_end/static/css/progressbar.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biomixer_interface/back_end/static/img/qrip.png" beforeDir="false" afterPath="$PROJECT_DIR$/biomixer_interface/back_end/static/img/qrip.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/biomixer_interface/back_end/static/bootstrap4-neon-glow.css" beforeDir="false" afterPath="$PROJECT_DIR$/biomixer_interface/back_end/static/bootstrap4-neon-glow.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/biomixer_interface/back_end/static/img/biofabrication_node_identity/NBD.svg" beforeDir="false" afterPath="$PROJECT_DIR$/biomixer_interface/back_end/static/img/biofabrication_node_identity/NBD.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/biomixer_interface/back_end/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/biomixer_interface/back_end/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/biomixer_interface/back_end/templates/library.html" beforeDir="false" afterPath="$PROJECT_DIR$/biomixer_interface/back_end/templates/library.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/biomixer_interface/back_end/templates/mixing.html" beforeDir="false" afterPath="$PROJECT_DIR$/biomixer_interface/back_end/templates/mixing.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biomixer_interface/back_end/templates/preparing.html" beforeDir="false" afterPath="$PROJECT_DIR$/biomixer_interface/back_end/templates/preparing.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/biomixer_interface/back_end/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/biomixer_interface/back_end/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/biomixer_interface/back_end/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/biomixer_interface/back_end/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biomixer_interface/biomixer_interface/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/biomixer_interface/biomixer_interface/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biomixer_interface/db.sqlite3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/requiremets.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,11 +55,11 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/biomixer_interface/back_end/templates/dzone.html" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/biomixer_interface/back_end/static/css/modifiers.css" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/biomixer_interface/back_end/templates/home.html" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/biomixer_interface/back_end/urls.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/biomixer_interface/back_end/views.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/biomixer_interface/back_end/templates/dzone.html" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/biomixer_interface/back_end/urls.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/biomixer_interface/back_end/templates/home.html" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -144,7 +115,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/biomixer_interface/back_end/templates" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -167,15 +138,13 @@
     </key>
   </component>
   <component name="RunManager" selected="Django Server.runserver all connections">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -188,7 +157,7 @@
         <env name="PYTHONUNBUFFERED" value="1" />
         <env name="DJANGO_SETTINGS_MODULE" value="biomixer_interface.settings" />
       </envs>
-      <option name="SDK_HOME" value="$PROJECT_DIR$/biomixer-venv/bin/python3.9" />
+      <option name="SDK_HOME" value="$PROJECT_DIR$/../../Biomixer/BioMixer/biomixer-venv/bin/python3.9" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/biomixer_interface" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -286,6 +255,7 @@
       <workItem from="1624280417577" duration="680000" />
       <workItem from="1624281106136" duration="57793000" />
       <workItem from="1624530595831" duration="20187000" />
+      <workItem from="1630512453256" duration="971000" />
     </task>
     <task id="LOCAL-00001" summary="libraries and UI colors&#10;&#10;basically add new libraries and adjust the UI colors to be corporate.">
       <created>1623807507899</created>

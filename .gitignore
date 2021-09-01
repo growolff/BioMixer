@@ -4,3 +4,4 @@ out/
 BioMixer.iml
 
 temp/
+/biomixer-venv/

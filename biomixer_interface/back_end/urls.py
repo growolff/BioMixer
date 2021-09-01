@@ -70,6 +70,11 @@ urlpatterns = [
         views.RecipePage.as_view(),
         name='recipe'
     ),
+    path(
+        'machine_controller',
+        views.MachineController.as_view(),
+        name='machine_controller'
+    )
 
 
 ]

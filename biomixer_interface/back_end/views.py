@@ -229,3 +229,15 @@ class RecipePage(View):
 
     def post(self, request):
         pass
+
+
+class MachineController(View):
+    def get(self, request):
+        name = request.GET.get("name")
+        if name is None:
+            name = "Nothing"
+        message = "Get " + name
+        return HttpResponse(content=message)
+
+    def post(self, request):
+        return HttpResponse(content='POST')

@@ -9,3 +9,5 @@ biomixer_interface/back_end/__pycache__/
 biomixer_interface/back_end/migrations/
 
 biomixer-venv/
+
+biomixer_interface/db.sqlite3

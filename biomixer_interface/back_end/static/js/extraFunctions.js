@@ -53,8 +53,8 @@ function validateInputs(id) {
     }
 }
 
-const start_stop_classes = 
-    {   active: 'btn-fab-green', active_text: 'Start', 
+const start_stop_classes =
+    {   active: 'btn-fab-green', active_text: 'Start',
         inactive: 'btn-danger', inactive_text: 'Stop'}
 
 const progressbar_classes ={
@@ -86,7 +86,54 @@ function switchStartStop(id){
     element.classList.add(start_stop_classes.inactive);
     element.innerHTML = start_stop_classes.inactive_text;
     toggleStartStopClasses();
+
+    if (start_stop_classes.active_text === 'Start'){
+      console.log("Start fetch");
+      fetch("/machine_controller?cmd=1", {
+          method: "get",
+          credentials: "same-origin",
+          headers: {
+              "X-CSRFToken": getCookie("csrftoken"),
+              //"Accept": "application/json",
+              //"Content-Type": "application/json"
+          },
+          //body: JSON.stringify(myData),
+      })
+    }
+    else if (start_stop_classes.active_text === 'Stop') {
+      console.log("Stop fetch");
+      fetch("/machine_controller?cmd=0", {
+          method: "get",
+          credentials: "same-origin",
+          headers: {
+              "X-CSRFToken": getCookie("csrftoken"),
+              //"Accept": "application/json",
+              //"Content-Type": "application/json"
+          },
+          //body: JSON.stringify(myData),
+      })
+    }
+
+
+    // Start commands
 }
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
 
 function toggleProgressBarItem(id){
     let element = document.getElementById(id);

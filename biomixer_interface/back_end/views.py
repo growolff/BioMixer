@@ -7,11 +7,12 @@ from django.views import View
 from django.shortcuts import render, redirect
 import socket
 import qrcode
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpRequest
 from .models import *
 from .forms import MaterialFormSet, Labels
+from biomixer_interface.arduino.machine_cmd import MachineCmd
 
-
+machine = MachineCmd()
 
 class HomePage(View):
     """
@@ -100,6 +101,9 @@ class PreparingPage(View):
         manages the request for the home page
     """
 
+    if not machine.portIsUsable():
+        print("[WARNING]: PLEASE CONNECT ARDUINO TO THE RASPBERRY")
+
     def get(self, request):
         """
         :param request:
@@ -130,28 +134,18 @@ class PreparingPage(View):
                 value_list.append(answer['value'])
                 material_index.append(i+1)
                 i += 1
-            # # BEGIN ARDUINO
-            # arduino = serial.Serial('/dev/ttyACM0',9600,timeout=10)
-            # # SEND Values
-            # machine = MachineCmd()
-            # machine.set_values(d1=value_list[0], d2=value_list[1],
-            #                    d3=value_list[2], d4=value_list[3],
-            #                    d5=value_list[4])
-            # machine.serialize()
-            # print(machine.to_hex())
-            # if arduino.write(machine.packet):
-            #     print('OK')
-            #     try:
-            #         packet = arduino.read(1)
-            #         print("original packet: ", packet.hex())
-            #     except serial.SerialException as e:
-            #         print(e)
-            #
-            # else:
-            #     print('fail')
-            #
-            # # arduino.close()
-            # END ARDUINO
+            # new_request = HttpRequest()
+            # query  = QuerDict(f'water={value_list[0]}')
+            # new_request.path = url('back_end:machine_controller')
+            # new_request.GET = query
+            # render(request)
+
+            machine.set_values(cmd=machine.CMD_SET_VALUES,
+                        d1=value_list[0], d2=value_list[1],
+                        d3=value_list[2], d4=value_list[3],
+                        d5=value_list[4])
+            machine.write()
+
         else:
             print(formset.errors)
 
@@ -193,7 +187,14 @@ class DropZone(View):
 
 class LiveOutputs(View):
     def txt(self):
+        new_text = machine.read(size=10).decode()
+        print(new_text)
         path = os.path.join(STATIC_PATH, 'machine_output/')
+        file = open(path + 'output.txt', 'a')
+        file.write("\n")
+        file.write(str(new_text))
+        file.close()
+
         file = open(path + 'output.txt', 'r')
         text = file.read()
         response = HttpResponse()
@@ -232,11 +233,30 @@ class RecipePage(View):
 
 
 class MachineController(View):
+
+    @staticmethod
+    def check_values(value_list):
+        for i in range(len(value_list)):
+            if  value_list[i] is None:
+                value_list[i] = 0
+        return value_list
+
     def get(self, request):
-        name = request.GET.get("name")
-        if name is None:
-            name = "Nothing"
-        message = "Get " + name
+
+        cmd = request.GET.get("cmd")
+        water = request.GET.get("water")
+        agar = request.GET.get("agar")
+        propinate = request.GET.get("propinate")
+        glycerin = request.GET.get("glycerin")
+        residue = request.GET.get("residue")
+        value_list = [water, agar, propinate, glycerin, residue]
+        value_list = self.check_values(value_list)
+        message = "Get " + str(value_list)
+        if cmd is not None:
+            print(f"CMD= {cmd}")
+        # write
+        #machine.write(value_list)
+
         return HttpResponse(content=message)
 
     def post(self, request):

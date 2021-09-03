@@ -8,6 +8,9 @@ temp/
 biomixer_interface/back_end/__pycache__/
 biomixer_interface/back_end/migrations/
 
+*/__pycache__/*
+*/*/__pycache__/*
+
 biomixer-venv/
 
 biomixer_interface/db.sqlite3

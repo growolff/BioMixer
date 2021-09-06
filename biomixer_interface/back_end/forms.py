@@ -5,7 +5,7 @@ from .models import *
 
 # Labels for forms
 class Labels:
-    options = ['Binder', 'Plasticizer', 'Support', 'Preservative', 'Organic Residue']
+    options = ['Support', 'Plasticizer', 'Binder', 'Preservative', 'Organic Waste']
     index = 0
 
     @property
@@ -28,9 +28,9 @@ class MaterialForm (forms.Form):
                                widget=forms.TextInput(
                                    attrs={
                                        'class': 'col-3 mr-4 form-control',
-                                       'type': 'number', 'min': '1',
-                                       'step': '0.01',
-                                       'placeholder': '0'
+                                       'type': 'number', 'min': '0',
+                                       'step': '0.1',
+                                       'value': 0
                                     }))
     type = forms.ChoiceField(choices=Supply.Types.choices,
                              required=True,
@@ -38,6 +38,7 @@ class MaterialForm (forms.Form):
                                  attrs={
                                      'class': 'col-3 mr-4 custom-select'
                                  }))
+    # state = forms.TypedChoiceField(choices=formfields.State, initial='FIXED')
 
 
 

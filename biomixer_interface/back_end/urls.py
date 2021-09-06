@@ -60,5 +60,21 @@ urlpatterns = [
         views.DropZone.success,
         name='dzone_succes'
     ),
+    path(
+        'machine_output',
+        views.LiveOutputs.txt,
+        name='machine_output'
+    ),
+    path(
+        'recipe',
+        views.RecipePage.as_view(),
+        name='recipe'
+    ),
+    path(
+        'machine_controller',
+        views.MachineController.as_view(),
+        name='machine_controller'
+    )
+
 
 ]

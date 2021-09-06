@@ -1,17 +1,18 @@
+import json
 import logging
 import os.path
-from  biomixer_interface.settings import STATIC_PATH
+from biomixer_interface.settings import STATIC_PATH
 from biomixer_interface.net_functions.ip import IP
 from django.views import View
 from django.shortcuts import render, redirect
 import socket
 import qrcode
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpRequest
 from .models import *
-import PIL
 from .forms import MaterialFormSet, Labels
 from biomixer_interface.arduino.machine_cmd import MachineCmd
-import serial
+
+machine = MachineCmd()
 
 class HomePage(View):
     """
@@ -48,7 +49,17 @@ class LibraryPage(View):
         :param request:
         :return:
         """
-        return render(request, 'library.html', context={})
+        recipes = []
+        recipes_qry_set = Recipe.objects.all()
+        for recipe in recipes_qry_set:
+            recipes.append({
+                "id": recipe.id,
+                "name":  recipe.name,
+                "creation_date": str(recipe.creation_date),
+                "link": "recipe?name=" + recipe.name
+            })
+        recipes_json = json.dumps(recipes)
+        return render(request, 'library.html', context={"recipes": recipes, "recipes_json": recipes_json})
 
     def post(self, request):
         """
@@ -90,9 +101,11 @@ class PreparingPage(View):
         manages the request for the home page
     """
 
+    if not machine.portIsUsable():
+        print("[WARNING]: PLEASE CONNECT ARDUINO TO THE RASPBERRY")
+
     def get(self, request):
         """
-
         :param request:
         :return:
         """
@@ -102,7 +115,6 @@ class PreparingPage(View):
 
     def post(self, request):
         """
-
         :param request:
         :return:
         """
@@ -122,28 +134,18 @@ class PreparingPage(View):
                 value_list.append(answer['value'])
                 material_index.append(i+1)
                 i += 1
-            # BEGIN ARDUINO
-            arduino = serial.Serial('/dev/ttyUSB0',9600,timeout=10)
-            # SEND Values
-            machine = MachineCmd()
-            machine.set_values(d1=value_list[0], d2=value_list[1],
-                               d3=value_list[2], d4=value_list[3],
-			                   d5=value_list[4])
-            machine.serialize()
-            print(machine.to_hex())
-            if arduino.write(machine.packet):
-                print('OK')
-                try:
-                    packet = arduino.read(10)
-                    print("original packet: ", packet.hex())
-                except serial.SerialException as e:
-                    print(e)
+            # new_request = HttpRequest()
+            # query  = QuerDict(f'water={value_list[0]}')
+            # new_request.path = url('back_end:machine_controller')
+            # new_request.GET = query
+            # render(request)
 
-            else:
-                print('fail')
+            machine.set_values(cmd=machine.CMD_SET_VALUES,
+                        d1=value_list[0], d2=value_list[1],
+                        d3=value_list[2], d4=value_list[3],
+                        d5=value_list[4])
+            machine.write()
 
-            # arduino.close()
-            # END ARDUINO
         else:
             print(formset.errors)
 
@@ -182,5 +184,80 @@ class DropZone(View):
     def success(request):
         return render(request, 'dzone_success.html')
 
+
 class LiveOutputs(View):
-    pass
+    def txt(self):
+        new_text = machine.read(size=10).decode()
+        print(new_text)
+        path = os.path.join(STATIC_PATH, 'machine_output/')
+        file = open(path + 'output.txt', 'a')
+        file.write("\n")
+        file.write(str(new_text))
+        file.close()
+
+        file = open(path + 'output.txt', 'r')
+        text = file.read()
+        response = HttpResponse()
+        response.write("<pre>" + text + "</pre>")
+        return response
+
+
+class RecipePage(View):
+    def get(self, request):
+        name = request.GET.get("name")
+        recipe = Recipe.objects.get(name=name)
+        supply_qry_set = Supply.objects.filter(recipe=recipe).order_by('position')
+        steps_qry_set = Step.objects.filter(recipe_id=recipe)
+        supplies = []
+        materials = []
+        values = []
+        for supply in supply_qry_set:
+            material = supply.material.name
+            materials.append(material)
+            values.append(supply.value)
+            supplies.append({
+                "position": supply.position+1,
+                "material": material,
+                "value": supply.value,
+                "type": supply.type,
+            })
+        print(recipe, supplies)
+        return render(request, template_name="recipe.html", context={"materials": materials,
+                                                                     "values": values,
+                                                                     "supplies": supplies,
+                                                                     "recipe_name": recipe.name,
+                                                                     "creation_date": recipe.creation_date})
+
+    def post(self, request):
+        pass
+
+
+class MachineController(View):
+
+    @staticmethod
+    def check_values(value_list):
+        for i in range(len(value_list)):
+            if  value_list[i] is None:
+                value_list[i] = 0
+        return value_list
+
+    def get(self, request):
+
+        cmd = request.GET.get("cmd")
+        water = request.GET.get("water")
+        agar = request.GET.get("agar")
+        propinate = request.GET.get("propinate")
+        glycerin = request.GET.get("glycerin")
+        residue = request.GET.get("residue")
+        value_list = [water, agar, propinate, glycerin, residue]
+        value_list = self.check_values(value_list)
+        message = "Get " + str(value_list)
+        if cmd is not None:
+            print(f"CMD= {cmd}")
+        # write
+        #machine.write(value_list)
+
+        return HttpResponse(content=message)
+
+    def post(self, request):
+        return HttpResponse(content='POST')

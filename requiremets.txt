@@ -1,6 +1,0 @@
-django
-django-admin
-djangorestframeworks
-django-cors-headers
-qrcode
-pillow
